@@ -5,7 +5,7 @@ public class AVLTreeDriver {
 
         AVLTree tree = new AVLTree();
 
-        // valores que provocam rotações diferentes
+        // values ​​that cause different rotations
         tree.insert(10);
         tree.insert(20);
         tree.insert(30); // RR

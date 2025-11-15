@@ -8,7 +8,7 @@ class AVLNode {
 
     public AVLNode(int k) {
         key = k;
-        height = 1; // começo como nó folha
+        height = 1; // the begin as a leaf knot
     }
 }
 
@@ -16,24 +16,24 @@ public class AVLTree {
 
     AVLNode root;
 
-    // altura de um nó (retorna 0 se for null)
+    // height of a node (returns 0 if null)
     private int height(AVLNode n) {
         if (n == null) return 0;
         return n.height;
     }
 
-    // maior entre dois números
+    // greater of two numbers
     private int max(int a, int b) {
         return (a > b) ? a : b;
     }
 
-    // fator de balanceamento
+    // balancing factor
     private int getBalance(AVLNode n) {
         if (n == null) return 0;
         return height(n.left) - height(n.right);
     }
 
-    // rotação simples à direita
+    // simple rotation to the right
     private AVLNode rotateRight(AVLNode y) {
         AVLNode x = y.left;
         AVLNode t2 = x.right;
@@ -47,7 +47,7 @@ public class AVLTree {
         return x;
     }
 
-    // rotação simples à esquerda
+    // simple left rotation
     private AVLNode rotateLeft(AVLNode x) {
         AVLNode y = x.right;
         AVLNode t2 = y.left;
@@ -65,7 +65,7 @@ public class AVLTree {
         root = insertRec(root, key);
     }
 
-    // inserção com rebalanceamento
+    // insertion with rebalancing
     private AVLNode insertRec(AVLNode node, int key) {
 
         if (node == null) {
@@ -77,34 +77,34 @@ public class AVLTree {
         } else if (key > node.key) {
             node.right = insertRec(node.right, key);
         } else {
-            // não vamos inserir duplicado
+            // We will not insert duplicates.
             return node;
         }
 
-        // atualiza altura
+        // update height
         node.height = 1 + max(height(node.left), height(node.right));
 
         int balance = getBalance(node);
 
-        // 4 casos de desbalanceamento
+        // 4 cases of imbalance
 
-        // Caso 1: esquerda-esquerda (LL)
+        // Caso 1: left-left (LL)
         if (balance > 1 && key < node.left.key) {
             return rotateRight(node);
         }
 
-        // Caso 2: direita-direita (RR)
+        // Caso 2: right-right (RR)
         if (balance < -1 && key > node.right.key) {
             return rotateLeft(node);
         }
 
-        // Caso 3: esquerda-direita (LR)
+        // Caso 3: left right (LR)
         if (balance > 1 && key > node.left.key) {
             node.left = rotateLeft(node.left);
             return rotateRight(node);
         }
 
-        // Caso 4: direita-esquerda (RL)
+        // Caso 4: right-left (RL)
         if (balance < -1 && key < node.right.key) {
             node.right = rotateRight(node.right);
             return rotateLeft(node);
@@ -113,7 +113,7 @@ public class AVLTree {
         return node;
     }
 
-    // TRAVESSIAS
+    // CROSSINGS
     public void inorder() {
         inorderRec(root);
         System.out.println();
